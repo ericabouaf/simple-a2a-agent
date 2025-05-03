@@ -1,4 +1,4 @@
-import { Agent as VoltAgentCoreAgent } from "@voltagent/core";
+import { Agent as VoltAgentCoreAgent, InMemoryStorage } from "@voltagent/core";
 import { VercelAIProvider } from "@voltagent/vercel-ai";
 import { openai } from "@ai-sdk/openai";
 import { TaskHandler, TaskContext, TaskYieldUpdate } from "./lib/a2a/server/index";
@@ -14,13 +14,24 @@ export function createAgentLogic(config: any): TaskHandler {
   let agent: any;
   (async () => {
     const allTools = await getAllTools();
+
     const { model } = config.llm;
     const modelInstance = openai(model as any);
+
+    const memory = new InMemoryStorage({
+      // Optional: Limit the number of messages stored per conversation thread
+      storageLimit: 100, // Defaults to no limit if not specified
+  
+      // Optional: Enable verbose debug logging from the memory provider
+      debug: true, // Defaults to false
+    });
+
     agent = new VoltAgentCoreAgent({
       name: config.agent?.name || "A2A Agent",
       description: config.agent?.description || "An assistant that can use MCP tools configured at startup",
       llm: new VercelAIProvider(),
       model: modelInstance,
+      memory: memory,
       tools: allTools,
     });
   })();
@@ -46,7 +57,10 @@ export function createAgentLogic(config: any): TaskHandler {
     // Use the VoltAgent agent instance to generate a response
     let agentResponse = "[VoltAgent not initialized]";
     if (agent) {
-      const completeResponse = await agent.generateText(userText);
+      const completeResponse = await agent.generateText(userText, {
+        userId: "default",
+        conversationId: context.task.id,
+      });
       agentResponse = completeResponse?.text || "[No response]";
     }
 
