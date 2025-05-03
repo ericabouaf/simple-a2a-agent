@@ -1,7 +1,7 @@
 {
   "name": "simple-a2a-agent",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "dist/cli.js",
   "scripts": {
     "start": "tsx src/cli.ts --config samples/sample-config.json",
     "test": "tsx node_modules/.bin/jest",
@@ -33,7 +33,7 @@
     "chalk": "^5.4.1"
   },
   "bin": {
-    "simple-a2a-agent": "src/cli.ts"
+    "simple-a2a-agent": "dist/cli.js"
   },
   "repository": {
     "type":"git",
