@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx src/cli.ts --config samples/sample-config.json",
-    "test": "tsx node_modules/.bin/jest"
+    "test": "tsx node_modules/.bin/jest",
+    "dist": "npx tsc -p tsconfig.cli.json"
   },
   "keywords": [],
   "author": "",
@@ -30,5 +31,8 @@
     "@voltagent/core": "^0.1.10",
     "@voltagent/vercel-ai": "^0.1.5",
     "chalk": "^5.4.1"
+  },
+  "bin": {
+    "simple-a2a-agent": "src/cli.ts"
   }
 }
