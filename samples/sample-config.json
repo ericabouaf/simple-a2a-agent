@@ -21,7 +21,9 @@
   "server": {
   },
   "llm": {
-    "provider": "openai",
+    "provider": {
+      "type": "openai"
+    },
     "model": "gpt-4o-mini"
   }
 } 

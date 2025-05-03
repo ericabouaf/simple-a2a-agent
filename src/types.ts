@@ -1,16 +1,26 @@
 /**
  * Configuration for the LLM provider and model parameters.
  */
+export interface LLMProviderConfig {
+  /** Provider type, e.g., 'openai', 'anthropic', 'groq' */
+  type: string;
+  /** Provider-specific options (e.g., apiKey, endpoint, etc.) */
+  options?: Record<string, any>;
+}
+
+/**
+ * Configuration for the LLM provider and model parameters.
+ */
 export interface LLMConfig {
-  /** Provider name, e.g., 'openai', 'anthropic' */
-  provider: string;
+  /** Provider configuration object */
+  provider: LLMProviderConfig;
   /** Model name or ID */
   model: string;
   /** Model temperature (optional) */
   temperature?: number;
   /** Maximum tokens for responses (optional) */
   maxTokens?: number;
-  /** Additional provider-specific parameters (optional) */
+  /** Additional model-specific parameters (optional) */
   [key: string]: any;
 }
 

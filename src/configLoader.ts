@@ -18,6 +18,7 @@ export class ConfigLoader {
       .option('--host <host>', 'Server host')
       .option('--llm-provider <provider>', 'LLM provider')
       .option('--llm-model <model>', 'LLM model')
+      .option('--llm-provider-option <keyValue...>', 'LLM provider options as key=value pairs (can be repeated)')
       .option('-n, --name <name>', 'Name of the agent')
       .option('-d, --description <description>', 'System prompt of the agent');
     // Use addOption for numeric options only
@@ -41,9 +42,18 @@ export class ConfigLoader {
       };
     }
     // Only construct llm if provider or model is present
-    if (opts.llmProvider || opts.llmModel || opts.llmTemperature || opts.llmMaxTokens) {
+    if (opts.llmProviderType || opts.llmModel || opts.llmTemperature || opts.llmMaxTokens || opts.llmProviderOption) {
       const llm: any = {};
-      if (opts.llmProvider) llm.provider = opts.llmProvider;
+      if (opts.llmProviderType) {
+        llm.provider = { type: opts.llmProviderType };
+        if (opts.llmProviderOption) {
+          llm.provider.options = {};
+          for (const kv of opts.llmProviderOption) {
+            const [key, value] = kv.split('=');
+            llm.provider.options[key] = value;
+          }
+        }
+      }
       if (opts.llmModel) llm.model = opts.llmModel;
       if (opts.llmTemperature !== undefined) llm.temperature = opts.llmTemperature;
       if (opts.llmMaxTokens !== undefined) llm.maxTokens = opts.llmMaxTokens;
@@ -120,7 +130,7 @@ export class ConfigLoader {
   static validateConfig(config: AgentConfig): void {
     if (!config.server) throw new Error('Missing server config');
     if (!config.llm) throw new Error('Missing llm config');
-    if (!config.llm.provider) throw new Error('Missing llm.provider');
+    if (!config.llm.provider || !config.llm.provider.type) throw new Error('Missing llm.provider.type');
     if (!config.llm.model) throw new Error('Missing llm.model');
   }
 

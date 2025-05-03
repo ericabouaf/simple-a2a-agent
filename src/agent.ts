@@ -1,6 +1,8 @@
 import { Agent as VoltAgentCoreAgent, InMemoryStorage, MCPConfiguration } from "@voltagent/core";
 import { VercelAIProvider } from "@voltagent/vercel-ai";
 import { openai } from "@ai-sdk/openai";
+import { anthropic } from "@ai-sdk/anthropic";
+import { groq } from "@ai-sdk/groq";
 import { TaskHandler, TaskContext, TaskYieldUpdate } from "./lib/a2a/server/index";
 import { Message } from "./lib/a2a/schema";
 
@@ -13,13 +15,44 @@ export async function getAllTools(config: any) {
   return await mcpConfig.getTools();
 }
 
+function getProviderInstance(providerConfig: any) {
+  switch (providerConfig.type) {
+    case "vercel-ai":
+      return new VercelAIProvider(providerConfig.options || {});
+    // Add other providers here as needed
+    default:
+      throw new Error(`Unknown provider type: ${providerConfig.type}`);
+  }
+}
+
+function getModelInstance(providerType: string, modelName: string) {
+  switch (providerType) {
+    case "openai":
+      return openai(modelName);
+    case "anthropic":
+      return anthropic(modelName);
+    case "groq":
+      return groq(modelName);
+    default:
+      throw new Error(`Unknown provider type for model: ${providerType}`);
+  }
+}
+
 export function createAgentLogic(config: any): TaskHandler {
   let agent: any;
   (async () => {
     const allTools = await getAllTools(config);
 
-    const { model } = config.llm;
-    const modelInstance = openai(model as any);
+    const providerType = config.llm.provider?.type;
+    const modelName = config.llm.model;
+
+    let modelInstance;
+    try {
+      modelInstance = getModelInstance(providerType, modelName);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
 
     const memory = new InMemoryStorage({
       // Optional: Limit the number of messages stored per conversation thread
