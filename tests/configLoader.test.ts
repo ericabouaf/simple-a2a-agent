@@ -7,7 +7,7 @@ describe('ConfigLoader', () => {
   const sampleConfig: AgentConfig = {
     server: { host: 'localhost', port: 3000 },
     llm: { provider: 'openai', model: 'gpt-3.5-turbo' },
-    mcpTools: [],
+    mcpServers: {},
     configPath: './config/agent.json',
     customOption: 42,
   };

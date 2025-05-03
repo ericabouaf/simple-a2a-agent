@@ -1,0 +1,38 @@
+{
+  "agent": {
+    "name": "Sample MCP Agent",
+    "description": "Use the filesystem tool to help the user with their files",
+    "provider": { "organization": "ExampleOrg" },
+    "version": "1.0.0",
+    "skills": [
+      {
+        "id": "filesystem",
+        "name": "Filesystem",
+        "description": "Use the filesystem tool to help the user with their files",
+        "tags": ["filesystem", "files", "folders"],
+        "examples": [
+          "Create a new folder called 'My Documents'",
+          "Create a new file called 'My Document.txt'",
+          "Move the file 'My Document.txt' to the folder 'My Documents'"
+        ]
+      }
+    ]
+  },
+  "server": {},
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini"
+  },
+  "mcpServers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/neyric/Desktop"
+      ],
+      "env": { "NODE_ENV": "production" }
+    }
+  }
+} 

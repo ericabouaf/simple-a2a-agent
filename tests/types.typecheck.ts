@@ -31,7 +31,7 @@ const validServer: ServerConfig = {
 const validAgentConfig: AgentConfig = {
   server: validServer,
   llm: validLLMConfig,
-  mcpTools: [validTool],
+  mcpServers: { filesystem: validTool },
   configPath: './config/agent.json',
   customOption: 123,
 };

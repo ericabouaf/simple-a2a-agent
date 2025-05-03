@@ -108,7 +108,7 @@ export class ConfigLoader {
         ...fileConfig.llm,
         ...cliConfig.llm,
       },
-      mcpTools: cliConfig.mcpTools || fileConfig.mcpTools || defaults.mcpTools,
+      mcpServers: cliConfig.mcpServers || fileConfig.mcpServers || defaults.mcpServers,
       configPath: cliConfig.configPath || fileConfig.configPath || defaults.configPath,
     } as AgentConfig;
   }

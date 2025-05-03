@@ -1,19 +1,22 @@
-import { Agent as VoltAgentCoreAgent, InMemoryStorage } from "@voltagent/core";
+import { Agent as VoltAgentCoreAgent, InMemoryStorage, MCPConfiguration } from "@voltagent/core";
 import { VercelAIProvider } from "@voltagent/vercel-ai";
 import { openai } from "@ai-sdk/openai";
 import { TaskHandler, TaskContext, TaskYieldUpdate } from "./lib/a2a/server/index";
 import { Message } from "./lib/a2a/schema";
 
-// Placeholder for MCP tools
-export async function getAllTools() {
-  // TODO: Replace with actual MCP tool loading logic
-  return [];
+// Load all MCP tools from the config's mcpServers section
+export async function getAllTools(config: any) {
+  if (!config.mcpServers) return [];
+  const mcpConfig = new MCPConfiguration({
+    servers: config.mcpServers,
+  });
+  return await mcpConfig.getTools();
 }
 
 export function createAgentLogic(config: any): TaskHandler {
   let agent: any;
   (async () => {
-    const allTools = await getAllTools();
+    const allTools = await getAllTools(config);
 
     const { model } = config.llm;
     const modelInstance = openai(model as any);

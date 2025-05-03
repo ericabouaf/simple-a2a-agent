@@ -44,8 +44,8 @@ export interface AgentConfig {
   server: ServerConfig;
   /** LLM configuration */
   llm: LLMConfig;
-  /** List of MCP tools to load */
-  mcpTools?: MCPToolConfig[];
+  /** List of MCP servers to load */
+  mcpServers?: Record<string, any>;
   /** Path to config file (optional, for reference) */
   configPath?: string;
   /** Additional agent options (optional) */

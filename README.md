@@ -32,6 +32,6 @@ npx tsx src/cli.ts --config samples/sample-config.json
 or even shorter :
 
 ```sh
-npx tsx src/cli.ts -c samples/sample-config.json
+npx tsx src/cli.ts -c samples/mcp-sample-config.json
 ````
 
