@@ -1,0 +1,27 @@
+{
+  "agent": {
+    "name": "Joke Agent",
+    "description": "An agent that tells jokes and brings laughter to users.",
+    "provider": { "organization": "ExampleOrg" },
+    "version": "1.0.0",
+    "skills": [
+      {
+        "id": "joke_telling",
+        "name": "Joke Telling",
+        "description": "Tells random jokes, puns, and humorous anecdotes on request.",
+        "tags": ["joke", "humor", "fun"],
+        "examples": [
+          "Tell me a joke.",
+          "Do you know any puns?",
+          "Make me laugh!"
+        ]
+      }
+    ]
+  },
+  "server": {
+  },
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini"
+  }
+} 
