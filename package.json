@@ -34,5 +34,9 @@
   },
   "bin": {
     "simple-a2a-agent": "src/cli.ts"
+  },
+  "repository": {
+    "type":"git",
+    "url":"http://github.com/ericabouaf/simple-a2a-agent.git"
   }
 }
