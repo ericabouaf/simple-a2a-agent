@@ -42,10 +42,10 @@ export class ConfigLoader {
       };
     }
     // Only construct llm if provider or model is present
-    if (opts.llmProviderType || opts.llmModel || opts.llmTemperature || opts.llmMaxTokens || opts.llmProviderOption) {
+    if (opts.llmProvider || opts.llmModel || opts.llmTemperature || opts.llmMaxTokens || opts.llmProviderOption) {
       const llm: any = {};
-      if (opts.llmProviderType) {
-        llm.provider = { type: opts.llmProviderType };
+      if (opts.llmProvider) {
+        llm.provider = { type: opts.llmProvider };
         if (opts.llmProviderOption) {
           llm.provider.options = {};
           for (const kv of opts.llmProviderOption) {
