@@ -7,10 +7,10 @@
     "test": "tsx node_modules/.bin/jest",
     "dist": "npx tsc -p tsconfig.cli.json"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["a2a", "a2a-protocol", "ai", "agent"],
+  "author": "Eric Abouaf",
   "license": "ISC",
-  "description": "",
+  "description": "A tool to quickly spin up simple Agent-to-Agent (A2A) servers",
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
