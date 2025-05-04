@@ -79,6 +79,63 @@ or even shorter :
 npx simple-a2a-agent -c samples/mcp-sample-config.json
 ```
 
+
+### Config file
+
+```json
+{
+  "agent": {
+    "name": "Joke Agent",
+    "description": "An agent that tells jokes and brings laughter to users.",
+    "provider": { "organization": "ExampleOrg" },
+    "version": "1.0.0",
+    "skills": [
+      {
+        "id": "joke_telling",
+        "name": "Joke Telling",
+        "description": "Tells random jokes, puns, and humorous anecdotes on request.",
+        "tags": ["joke", "humor", "fun"],
+        "examples": [
+          "Tell me a joke.",
+          "Do you know any puns?",
+          "Make me laugh!"
+        ]
+      }
+    ]
+  },
+  "server": {
+  },
+  "llm": {
+    "provider": {
+      "type": "openai"
+    },
+    "model": "gpt-4o-mini"
+  }
+}
+```
+
+### Adding MCP tools
+
+```js
+{
+    // ...
+    "mcpServers": {
+        "filesystem": {
+        "type": "stdio",
+        "command": "npx",
+        "args": [
+            "-y",
+            "@modelcontextprotocol/server-filesystem",
+            "/Users/neyric/Desktop"
+        ],
+        "env": { "NODE_ENV": "production" }
+        }
+    }
+}
+```
+
+Cf https://voltagent.dev/docs/agents/mcp/
+
 ### Improvements / TODO
 
 - Remove option for config file (use first argument)
