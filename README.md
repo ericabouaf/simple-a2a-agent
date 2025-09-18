@@ -144,8 +144,9 @@ Cf https://voltagent.dev/docs/agents/mcp/
 
 ### Improvements / TODO
 
-- Remove option for config file (use first argument)
-- Add an example for Anthropic Claude
-- Split the agentCard description from the system prompt
-- Use a future official A2A typescript SDK (for the time being, we imported files from https://github.com/google/A2A)
-- Support for additional A2A features (streaming, input/output modes, ...)
+- [ ] Remove option for config file (use first argument)
+- [ ] Add an example for Anthropic Claude
+- [ ] Split the agentCard description from the system prompt
+- [x] Use a future official A2A typescript SDK (for the time being, we imported files from https://github.com/google/A2A)
+- [ ] Support for additional A2A features (streaming, input/output modes, ...)
+- [ ] Upgrade VoltAgent dependencies
