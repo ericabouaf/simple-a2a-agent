@@ -4,8 +4,10 @@
   "main": "dist/cli.js",
   "scripts": {
     "start": "tsx src/cli.ts --config samples/sample-config.json",
+    "demo": "tsx demo.ts",
     "test": "tsx node_modules/.bin/jest",
-    "dist": "npx tsc -p tsconfig.cli.json"
+    "dist": "npx tsc -p tsconfig.cli.json",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "a2a",
@@ -36,7 +38,8 @@
     "@voltagent/core": "^0.1.10",
     "@voltagent/vercel-ai": "^0.1.5",
     "chalk": "^5.4.1",
-    "commander": "^13.1.0"
+    "commander": "^13.1.0",
+    "uuid": "^13.0.0"
   },
   "bin": {
     "simple-a2a-agent": "dist/cli.js"

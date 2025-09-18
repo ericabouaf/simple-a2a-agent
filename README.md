@@ -80,6 +80,12 @@ npx simple-a2a-agent -c samples/mcp-sample-config.json
 ```
 
 
+### Testing it works properly
+
+```sh
+curl http://localhost:5232/.well-known/agent-card.json | jq
+```
+
 ### Config file
 
 ```json
